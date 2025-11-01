@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Nueva Medición - IMC App</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f7f8fa; margin:0; padding:20px; }
+    .card { max-width: 420px; margin: 0 auto; background:#fff; border-radius:10px; padding:24px; box-shadow:0 0 10px rgba(0,0,0,.08); }
+    h2 { text-align:center; margin-top:0; color:#333; }
+    label { display:block; margin:12px 0 6px; color:#333; }
+    input { width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; }
+    .error { color:#b00020; font-size:13px; margin-top:6px; }
+    .global-error { background:#fdecea; color:#b00020; border:1px solid #f5c2c7; padding:10px; border-radius:6px; margin-bottom:10px; }
+    .btn { width:100%; background:#28a745; color:#fff; padding:12px; border:none; border-radius:6px; cursor:pointer; margin-top:16px; }
+    .links { text-align:center; margin-top:14px; font-size:14px; }
+    a { color:#007bff; text-decoration:none; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h2>Registrar nueva medición</h2>
+
+  <form th:action="@{/measurements}" th:object="${form}" method="post">
+    <!-- Errores globales (si se lanza IllegalArgumentException, por ejemplo) -->
+    <div th:if="${#fields.hasGlobalErrors()}" class="global-error">
+      <div th:each="ge : ${#fields.globalErrors()}" th:text="${ge}">Global error</div>
+    </div>
+
+    <label>Peso (kg)</label>
+    <input type="number" th:field="*{pesoKg}" step="0.1" min="30" placeholder="Ej. 68.5">
+    <div class="error" th:if="${#fields.hasErrors('pesoKg')}" th:errors="*{pesoKg}">Error</div>
+
+    <!-- Si luego habilitas CSRF de Spring Security, Thymeleaf puede inyectarlo:
+    <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    -->
+
+    <button class="btn" type="submit">Guardar medición</button>
+
+    <div class="links">
+      <a th:href="@{/measurements}">Ver histórico</a> ·
+      <a th:href="@{/}">Volver al inicio</a>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>

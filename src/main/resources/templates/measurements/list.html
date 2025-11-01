@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Histórico de Mediciones - IMC App</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f7f8fa; margin:0; padding:20px; }
+    .wrap { max-width: 900px; margin: 0 auto; }
+    .header { background:#fff; border-radius:10px; padding:18px; box-shadow:0 0 8px rgba(0,0,0,.08); margin-bottom:18px; display:flex; align-items:center; justify-content:space-between; }
+    .header h2 { margin:0; color:#333; }
+    .muted { color:#666; margin:4px 0 0; font-size:14px; }
+    .btn { display:inline-block; background:#28a745; color:#fff; padding:10px 14px; border-radius:6px; text-decoration:none; }
+    .btn-secondary { background:#007bff; }
+    .card { background:#fff; border-radius:10px; padding:0; box-shadow:0 0 8px rgba(0,0,0,.08); }
+    table { width:100%; border-collapse:collapse; font-size:14px; }
+    thead tr { background:#f1f1f1; }
+    th, td { padding:10px; border:1px solid #ddd; text-align:left; }
+    .center { text-align:center; }
+    .empty { padding:30px; text-align:center; color:#666; }
+    form.inline { display:inline; }
+    form.inline button { background:#dc3545; color:#fff; border:none; padding:6px 10px; border-radius:4px; cursor:pointer; }
+    .actions { text-align:right; padding:14px; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Encabezado con datos del usuario y último IMC -->
+  <div class="header">
+    <div>
+      <h2 th:text="'Histórico de ' + ${usuario.nombreCompleto}">Histórico de Juan Pérez</h2>
+      <p class="muted">
+        <span th:if="${ultima != null}">
+          Última medición:
+          <strong th:text="${#numbers.formatDecimal(ultima.imc, 1, 'POINT', 2, 'POINT')}">23.10</strong>
+          · Fecha:
+          <span th:text="${#temporals.format(ultima.tomadoEnUtc, 'yyyy-MM-dd HH:mm')}">2025-02-15 18:20</span>
+        </span>
+        <span th:if="${ultima == null}">Aún no tienes mediciones registradas.</span>
+      </p>
+    </div>
+    <div>
+      <a class="btn btn-secondary" th:href="@{/}">Inicio</a>
+    </div>
+  </div>
+
+  <!-- Tabla / estado vacío -->
+  <div class="card" th:if="${historial != null and !historial.isEmpty()}">
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Peso (kg)</th>
+          <th>Estatura (m)</th>
+          <th>IMC</th>
+          <th class="center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="m : ${historial}">
+          <td th:text="${#temporals.format(m.tomadoEnUtc, 'yyyy-MM-dd HH:mm')}">2025-02-15 18:20</td>
+          <td th:text="${#numbers.formatDecimal(m.pesoKg, 1, 'POINT', 1, 'POINT')}">68.5</td>
+          <td th:text="${#numbers.formatDecimal(m.estaturaSnapshot, 1, 'POINT', 2, 'POINT')}">1.72</td>
+          <td th:text="${#numbers.formatDecimal(m.imc, 1, 'POINT', 2, 'POINT')}">23.10</td>
+          <td class="center">
+            <form class="inline" th:action="@{|/measurements/${m.id}/delete|}" method="post">
+              <!-- Si más adelante habilitas CSRF, Thymeleaf puede inyectarlo:
+              <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+              -->
+              <button type="submit">Eliminar</button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="actions">
+      <a class="btn" th:href="@{/measurements/new}">Registrar otra medición</a>
+    </div>
+  </div>
+
+  <div class="card empty" th:if="${historial == null or historial.isEmpty()}">
+    No hay mediciones aún. <a th:href="@{/measurements/new}">Registra tu primera medición</a>.
+  </div>
+
+</div>
+</body>
+</html>

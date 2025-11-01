@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro - IMC App</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f7f8fa; margin:0; padding:20px; }
+    .card { max-width: 520px; margin: 0 auto; background:#fff; border-radius:10px; padding:24px; box-shadow:0 0 10px rgba(0,0,0,.08); }
+    h2 { text-align:center; margin-top:0; color:#333; }
+    label { display:block; margin:12px 0 6px; color:#333; }
+    input, select { width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; }
+    .error { color:#b00020; font-size:13px; margin-top:6px; }
+    .global-error { background:#fdecea; color:#b00020; border:1px solid #f5c2c7; padding:10px; border-radius:6px; margin-bottom:10px; }
+    .btn { width:100%; background:#007bff; color:#fff; padding:12px; border:none; border-radius:6px; cursor:pointer; margin-top:16px; }
+    .alt { text-align:center; margin-top:14px; font-size:14px; }
+    a { color:#007bff; text-decoration:none; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h2>Crear cuenta</h2>
+
+  
+
+    <form th:action="@{/register}" th:object="${form}" method="post">
+    <!-- Mensaje global simple (sin #fields) -->
+    <div th:if="${registerError}" class="global-error" th:text="${registerError}">
+      Error de registro
+    </div>
+
+    <label>Nombre completo</label>
+    <input type="text" th:field="*{nombreCompleto}" placeholder="Tu nombre completo" required>
+    <div class="error" th:if="${#fields.hasErrors('nombreCompleto')}" th:errors="*{nombreCompleto}">Err</div>
+
+    <label>Nombre de usuario</label>
+    <input type="text" th:field="*{username}" placeholder="Usuario" required minlength="4" maxlength="60">
+    <div class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Err</div>
+
+    <label>Contraseña</label>
+    <input type="password" th:field="*{password}" placeholder="Mínimo 8 caracteres" required minlength="8">
+    <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Err</div>
+
+    <label>Confirmar contraseña</label>
+    <input type="password" th:field="*{confirmarPassword}" placeholder="Repite tu contraseña" required minlength="8">
+    <div class="error" th:if="${#fields.hasErrors('confirmarPassword')}" th:errors="*{confirmarPassword}">Err</div>
+
+    <label>Edad</label>
+    <input type="number" th:field="*{edad}" min="15" required>
+    <div class="error" th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}">Err</div>
+
+    <label>Sexo</label>
+    <select th:field="*{sexo}" required>
+      <option value="">Selecciona...</option>
+      <option value="M">Masculino</option>
+      <option value="F">Femenino</option>
+      <option value="O">Otro</option>
+    </select>
+    <div class="error" th:if="${#fields.hasErrors('sexo')}" th:errors="*{sexo}">Err</div>
+
+    <label>Estatura (m)</label>
+    <input type="number" th:field="*{estatura}" step="0.01" min="1.00" max="2.50" required>
+    <div class="error" th:if="${#fields.hasErrors('estatura')}" th:errors="*{estatura}">Err</div>
+
+    <button class="btn" type="submit">Registrar</button>
+
+    <div class="alt">
+      ¿Ya tienes cuenta? <a th:href="@{/login}">Inicia sesión</a>
+    </div>
+  </form>
+
+</div>
+
+</body>
+</html>

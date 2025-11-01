@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Perfil de Usuario - IMC App</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f7f8fa; margin:0; padding:20px; }
+    .wrap { max-width: 720px; margin: 0 auto; }
+    .card { background:#fff; border-radius:10px; box-shadow:0 0 8px rgba(0,0,0,.08); padding:22px; }
+    h2 { margin:0 0 16px 0; color:#333; text-align:center; }
+    .row { display:flex; gap:18px; flex-wrap:wrap; }
+    .col { flex:1 1 300px; }
+    .label { color:#555; font-size:13px; margin:10px 0 4px; }
+    .value { background:#f6f7fb; border:1px solid #e3e6ef; border-radius:8px; padding:10px; }
+    .actions { margin-top:18px; text-align:center; }
+    .btn { display:inline-block; text-decoration:none; padding:10px 14px; border-radius:6px; color:#fff; margin:6px; }
+    .btn-edit { background:#17a2b8; }
+    .btn-pass { background:#6c757d; }
+    .btn-home { background:#007bff; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <h2 th:text="${u != null ? 'Perfil de ' + u.nombreCompleto : 'Perfil'}">Perfil de Usuario</h2>
+
+    <div class="row">
+      <div class="col">
+        <div class="label">Nombre completo</div>
+        <div class="value" th:text="${u.nombreCompleto}">Juan Pérez</div>
+      </div>
+      <div class="col">
+        <div class="label">Usuario</div>
+        <div class="value" th:text="${u.username}">juanpe</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="label">Edad</div>
+        <div class="value" th:text="${u.edad}">28</div>
+      </div>
+      <div class="col">
+        <div class="label">Sexo</div>
+        <div class="value" th:text="${u.sexo}">M</div>
+      </div>
+      <div class="col">
+        <div class="label">Estatura (m)</div>
+        <div class="value" th:text="${#numbers.formatDecimal(u.estatura, 1, 'POINT', 2, 'POINT')}">1.72</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <a class="btn btn-edit" th:href="@{/profile/edit}">Editar perfil</a>
+      <a class="btn btn-pass" th:href="@{/profile/password}">Cambiar contraseña</a>
+      <a class="btn btn-home" th:href="@{/}">Inicio</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
