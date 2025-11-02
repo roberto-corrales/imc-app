@@ -39,6 +39,16 @@ public class Measurement {
         }
     }
 
+    @Transient
+    public String getCategoriaBmi() {
+        double bmi = getImc(); // or compute from peso/estatura if needed
+        if (bmi < 18.5) return "Bajo peso";
+        if (bmi < 25.0) return "Normal";
+        if (bmi < 30.0) return "Sobrepeso";
+        return "Obesidad";
+    }
+
+
     // Getters/Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }

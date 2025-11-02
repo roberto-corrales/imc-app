@@ -33,6 +33,8 @@
         <span th:if="${ultima != null}">
           Última medición:
           <strong th:text="${#numbers.formatDecimal(ultima.imc, 1, 'POINT', 2, 'POINT')}">23.10</strong>
+          Categoría BMI:
+          <strong th:text="${ultima.categoriaBmi}">Normal</strong>
           · Fecha:
           <span th:text="${#temporals.format(ultima.tomadoEnUtc, 'yyyy-MM-dd HH:mm')}">2025-02-15 18:20</span>
         </span>
@@ -53,6 +55,7 @@
           <th>Peso (kg)</th>
           <th>Estatura (m)</th>
           <th>IMC</th>
+          <th>Categoría</th>
           <th class="center">Acciones</th>
         </tr>
       </thead>
@@ -62,6 +65,7 @@
           <td th:text="${#numbers.formatDecimal(m.pesoKg, 1, 'POINT', 1, 'POINT')}">68.5</td>
           <td th:text="${#numbers.formatDecimal(m.estaturaSnapshot, 1, 'POINT', 2, 'POINT')}">1.72</td>
           <td th:text="${#numbers.formatDecimal(m.imc, 1, 'POINT', 2, 'POINT')}">23.10</td>
+          <td th:text="${m.categoriaBmi}">Normal</td>
           <td class="center">
             <form class="inline" th:action="@{|/measurements/${m.id}/delete|}" method="post">
               <!-- Si más adelante habilitas CSRF, Thymeleaf puede inyectarlo:

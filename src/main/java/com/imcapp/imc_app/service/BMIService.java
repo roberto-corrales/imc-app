@@ -2,6 +2,8 @@ package com.imcapp.imc_app.service;
 
 import org.springframework.stereotype.Service;
 
+
+
 @Service
 public class BMIService {
 
@@ -21,4 +23,5 @@ public class BMIService {
     private double round2(double v) {
         return Math.round(v * 100.0) / 100.0;
     }
+
 }
