@@ -37,15 +37,7 @@ Universidad TecMilenio — Entrega Académica
 ---
 
 ## Estructura del Proyecto
-src/
-├─ main/java/com/imcapp/imc_app/
-│ ├─ model/ → Entidades JPA (User, Measurement)
-│ ├─ service/ → Lógica de negocio
-│ ├─ web/ → Controladores MVC
-│ └─ dto/ → Objetos de formulario con validaciones
-└─ resources/
-├─ templates/ → Vistas Thymeleaf (HTML)
-└─ application.properties → Configuración del sistema
+(src/main/resources/static/img/structure.png)
 
 
 ---
@@ -74,8 +66,6 @@ src/
 | tomado_en_utc | TIMESTAMP | Fecha del registro |
 
 ---
-
-## Ejecución del Proyecto
 
 ### Requisitos previos
 - Java 17 instalado y configurado
