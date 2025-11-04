@@ -37,7 +37,7 @@ Universidad TecMilenio — Entrega Académica
 ---
 
 ## Estructura del Proyecto
-(src/main/resources/static/img/structure.png)
+![project structure](src/main/resources/static/img/structure.png)
 
 
 ---
