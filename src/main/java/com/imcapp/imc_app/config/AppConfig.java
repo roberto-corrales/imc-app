@@ -13,11 +13,11 @@ public class AppConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // seguro y estándar
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
     public Clock clock() {
-        return Clock.system(ZoneId.of("UTC")); // o tu zona: ZoneId.of("America/Mexico_City")
+        return Clock.system(ZoneId.of("America/Mexico_City")); 
     }
 }

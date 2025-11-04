@@ -80,14 +80,5 @@ public class User {
     public LocalDateTime getCreadoEnUtc() { return creadoEnUtc; }
     public LocalDateTime getActualizadoEnUtc() { return actualizadoEnUtc; }
     public List<Measurement> getMeasurements() { return measurements; }
-
-    // utilidades para mantener la bidireccionalidad
-    public void addMeasurement(Measurement m) {
-        measurements.add(m);
-        m.setUser(this);
-    }
-    public void removeMeasurement(Measurement m) {
-        measurements.remove(m);
-        m.setUser(null);
-    }
+   
 }

@@ -37,10 +37,8 @@ public class UserService {
         u.setEdad(edad);
         u.setSexo(sexo);
         u.setEstatura(estaturaM);
-        // timestamps
-        var now = LocalDateTime.now(clock);
-        // setters de timestamps están en @PrePersist, pero por si quieres forzar:
-        // u.setCreadoEnUtc(now); u.setActualizadoEnUtc(now);
+       
+       
         return users.save(u);
     }
 

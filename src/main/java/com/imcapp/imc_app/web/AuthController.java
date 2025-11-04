@@ -2,7 +2,6 @@ package com.imcapp.imc_app.web;
 
 import com.imcapp.imc_app.dto.LoginForm;
 import com.imcapp.imc_app.dto.UserForm;
-import com.imcapp.imc_app.model.User;
 import com.imcapp.imc_app.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
